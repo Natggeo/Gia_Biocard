@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GIA | BioCard</title>
+    <!-- Bootstrap 5 CSS para el funcionamiento del carrusel -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lavanda: #8893c9;        /* 60% Fondo principal (#8893c9) */
+            --lavanda-palido: #939adf; /* 30% Estructuras / Contenedores (#939adf) */
+            --hueso: #fff7d6;          /* 10% Acento de luz / Lienzo (#fff7d6) */
+            --malva-oscuro: #7b627b;   /* 10% Sombras y detalles (#7b627b) */
+            --grafito: #231f20;        /* 10% Textos y trazos firmes (#231f20) */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Centrado absoluto + Fondo con imagen animada hacia la derecha */
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-height: 100dvh;
+            background-color: var(--lavanda);
+            /* Apunta a la imagen FONDO-02 en tu carpeta IMG */
+            background-image: url('IMG/FONDO-02'), url('IMG/FONDO-02.png'), url('IMG/FONDO-02.jpg');
+            background-repeat: repeat;
+            background-size: auto 100%; /* Ajusta la escala del patrón */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--grafito);
+            display: grid;
+            place-items: center;
+            padding: 16px;
+            overflow-x: hidden;
+            animation: moveBackground 25s linear infinite;
+        }
+
+        /* Animación para desplazar el fondo hacia la derecha */
+        @keyframes moveBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        /* Marco Principal de la Consola */
+        .bio-card {
+            width: 100%;
+            max-width: 460px;
+            background-color: #ffffff;
+            border: 3.5px solid var(--grafito);
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(35, 31, 32, 0.35);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 1. Header superior */
+        .card-header {
+            background-color: var(--grafito);
+            color: var(--hueso);
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 2. Sección Banner con Imagen */
+        .banner-container {
+            width: 100%;
+            background-color: #ffffff;
+            padding: 12px 16px 16px 16px;
+            position: relative;
+        }
+
+        .gia-watermark {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--grafito);
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .banner-box {
+            width: 100%;
+            height: 140px;
+            background-color: var(--hueso);
+            border: 2.5px solid var(--grafito);
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .banner-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .banner-placeholder {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--grafito);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* 3. Separador Animado */
+        .animated-separator {
+            background-color: var(--hueso);
+            border-top: 2.5px solid var(--grafito);
+            border-bottom: 2.5px solid var(--grafito);
+            padding: 8px 12px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--grafito);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            animation: marquee 12s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* 4. Sección de Información */
+        .info-section {
+            background-color: var(--lavanda-palido);
+            padding: 16px;
+            border-bottom: 2.5px solid var(--grafito);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-row {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            gap: 14px;
+            align-items: center;
+        }
+
+        .avatar-box {
+            width: 110px;
+            height: 110px;
+            background-color: var(--hueso);
+            border: 2.5px solid var(--grafito);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 0px var(--grafito);
+        }
+
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        .logo-container {
+            width: 100%;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .brand-logo-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .tags-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        .tag-pill {
+            background-color: var(--lavanda);
+            color: var(--hueso);
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 12px;
+            border: 1.5px solid var(--grafito);
+            text-transform: lowercase;
+            box-shadow: 1px 1px 0px var(--grafito);
+        }
+
+        .quote-text {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--grafito);
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .bio-paragraph {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: var(--grafito);
+            font-weight: 600;
+            text-align: justify;
+        }
+
+        /* Ajuste del carrusel de Bootstrap */
+        .carousel-item {
+            height: 250px;
+            background-color: var(--hueso);
+        }
+
+        .carousel-item img {
+            height: 100%;
+            object-fit: contain;
+            margin: auto;
+        }
+
+        /* 6. Botonera Inferior */
+        .buttons-section {
+            background-color: var(--hueso);
+            border-top: 2.5px solid var(--grafito);
+            padding: 12px 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .btn-link {
+            background-color: var(--hueso);
+            border: 2px solid var(--grafito);
+            border-radius: 8px;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--grafito);
+            text-decoration: none;
+            text-transform: uppercase;
+            box-shadow: 0 3px 0 var(--grafito);
+            transition: all 0.15s ease;
+        }
+
+        .btn-link:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 var(--grafito);
+        }
+
+        /* 7. Footer */
+        .card-footer {
+            background-color: var(--grafito);
+            color: var(--hueso);
+            text-align: center;
+            padding: 8px 12px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bio-card">
+        <!-- 1. Encabezado -->
+        <div class="card-header">BY GIA</div>
+
+        <!-- 2. Banner con imagen -->
+        <div class="banner-container">
+            <div class="gia-watermark">GIA</div>
+            <div class="banner-box">
+                <img src="IMG/BANNER" alt="Banner GIA" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <span class="banner-placeholder" style="display:none;">[BANNER CON IMAGEN]</span>
+            </div>
+        </div>
+
+        <!-- 4 SEPARADOR ANIMADO -->
+        <div class="animated-separator">
+            <span class="marquee-text">✦ LA ARTESANA DEL CUENTO ✦ ANIMADORA DIGITAL ✦ CONCEPT ART ✦ 3D ARTIST ✦</span>
+        </div>
+
+        <!-- 4. Sección Bio e Información -->
+        <div class="info-section">
+            <div class="profile-row">
+                <div class="avatar-box">
+                    <img src="IMG/ICON" alt="Icon GIA" onerror="this.style.display='none';">
+                </div>
+                <div class="profile-details">
+                    <div class="logo-container">
+                        <img id="gia-logo" src="IMG/LOGO 0-CAFE.png" alt="GIA Logo" class="brand-logo-img">
+                    </div>
+                    
+                    <div class="tags-row">
+                        <span class="tag-pill">3d art</span>
+                        <span class="tag-pill">2d anim</span>
+                        <span class="tag-pill">concept</span>
+                    </div>
+                </div>
+            </div>
+
+            <p class="bio-paragraph">
+                Soy una creadora visual y diseñadora apasionada por dar vida a ideas a través de la animación, el arte digital y el desarrollo de experiencias interactivas. Mi enfoque combina la sensibilidad artesanal con el rigor técnico para construir narrativas visuales únicas.
+            </p>
+        </div>
+
+        <!-- Carousel Exacto de Bootstrap -->
+        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+          <!-- Indicators/dots -->
+          <div class="carousel-indicators" id="carousel-indicators-container">
+            <!-- Se generan dinámicamente -->
+          </div>
+
+          <!-- The slideshow/carousel -->
+          <div class="carousel-inner" id="carousel-inner-container">
+            <!-- Se generan dinámicamente -->
+          </div>
+
+          <!-- Left and right controls/icons -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+        </div>
+
+        <!-- 6. Botones principales -->
+        <div class="buttons-section">
+            <a href="https://www.behance.net/natalievelasco2" target="_blank" class="btn-link">BEHANCE</a>
+            <a href="gia.rtswork@gmail.com" class="btn-link">CONTACT</a>
+            <a href="https://www.behance.net" target="_blank" class="btn-link">PORTAFOLIO</a>
+        </div>
+
+        <!-- 7. Footer -->
+        <div class="card-footer">
+            THIS WORK © 2026 GIA — NATALIE MÉNDEZ.
+        </div>
+    </div>
+
+    <!-- Script de Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const carouselFiles = [
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", 
+
+        ];
+
+        const indicatorsContainer = document.getElementById("carousel-indicators-container");
+        const innerContainer = document.getElementById("carousel-inner-container");
+        const extensions = [".png", ".jpg", ".jpeg", ".webp", ""];
+
+        carouselFiles.forEach((file, index) => {
+            const isActive = index === 0 ? "active" : "";
+
+            const indicatorBtn = document.createElement("button");
+            indicatorBtn.type = "button";
+            indicatorBtn.dataset.bsTarget = "#demo";
+            indicatorBtn.dataset.bsSlideTo = index;
+            if (index === 0) {
+                indicatorBtn.classList.add("active");
+                indicatorBtn.setAttribute("aria-current", "true");
+            }
+            indicatorsContainer.appendChild(indicatorBtn);
+
+            const itemDiv = document.createElement("div");
+            itemDiv.className = `carousel-item ${isActive}`;
+
+            const img = document.createElement("img");
+            img.className = "d-block w-100";
+            img.alt = `Carrusel ${file}`;
+
+            let extIdx = 0;
+            function tryLoad() {
+                if (extIdx < extensions.length) {
+                    const src = `IMG/CARRUSEL/${file}${extensions[extIdx++]}`;
+                    img.src = src;
+                }
+            }
+            img.onerror = tryLoad;
+            tryLoad();
+
+            itemDiv.appendChild(img);
+            innerContainer.appendChild(itemDiv);
+        });
+
+        // Fallback Logo
+        const logoImg = document.getElementById("gia-logo");
+        let logoExtIndex = 0;
+        logoImg.onerror = () => {
+            const logoExts = [".png", ".jpg", ".svg", ".webp"];
+            if (logoExtIndex < logoExts.length) {
+                logoImg.src = `IMG/LOGO 0-CAFE${logoExts[logoExtIndex++]}`;
+            }
+        };
+    </script>
+</body>
+</html>
