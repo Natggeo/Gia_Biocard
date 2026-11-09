@@ -7,7 +7,7 @@
     <title>GIA | BioCard</title>
     <!-- Bootstrap 5 CSS para el carrusel -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800&display=swap" rel="stylesheet">
     <style>
         :root {
             --lavanda: #8893c9;        /* 60% Fondo principal (#8893c9) */
@@ -38,7 +38,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Cero barras de scroll */
+            overflow: hidden;
             animation: moveBackground 25s linear infinite;
         }
 
@@ -116,30 +116,43 @@
             text-transform: uppercase;
         }
 
-        /* 3. Separador Animado */
+        /* 3. Separador Animado Infinito sin Huecos */
         .animated-separator {
             background-color: var(--hueso);
             border-top: 2.5px solid var(--grafito);
             border-bottom: 2.5px solid var(--grafito);
-            padding: 8px 12px;
-            text-align: center;
+            padding: 8px 0;
+            text-align: left;
             font-size: 0.8rem;
             font-weight: 800;
+            font-style: italic; /* Cursiva */
             color: var(--grafito);
             text-transform: uppercase;
             letter-spacing: 1px;
             overflow: hidden;
             white-space: nowrap;
+            width: 100%;
         }
 
-        .marquee-text {
+        .marquee-track {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: scrollMarquee 10s linear infinite;
+        }
+
+        .marquee-content {
             display: inline-block;
-            animation: marquee 12s linear infinite;
+            white-space: nowrap;
+            padding-right: 0.5rem; /* Espaciado idéntico entre la última y primera palabra */
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        @keyframes scrollMarquee {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         /* 4. Sección Bio e Información */
@@ -153,29 +166,11 @@
         }
 
         .profile-row {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .avatar-box {
-            width: 100px;
-            height: 100px;
-            background-color: var(--hueso);
-            border: 2.5px solid var(--grafito);
-            border-radius: 16px;
-            overflow: hidden;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 2px 2px 0px var(--grafito);
-        }
-
-        .avatar-box img {
+            flex-direction: column;
+            gap: 8px;
+            align-items: flex-start;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .profile-details {
@@ -183,12 +178,12 @@
             flex-direction: column;
             gap: 6px;
             align-items: flex-start;
-            justify-content: center;
+            width: 100%;
         }
 
         .logo-container {
             width: 100%;
-            height: 55px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: flex-start;
@@ -198,26 +193,6 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-        }
-
-        .tags-row {
-            display: flex;
-            gap: 6px;
-            flex-wrap: nowrap;
-            width: 100%;
-        }
-
-        .tag-pill {
-            background-color: var(--lavanda);
-            color: var(--hueso);
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 12px;
-            border: 1.5px solid var(--grafito);
-            text-transform: lowercase;
-            box-shadow: 1px 1px 0px var(--grafito);
-            white-space: nowrap;
         }
 
         .bio-paragraph {
@@ -300,35 +275,29 @@
 
         <!-- 3. SEPARADOR ANIMADO -->
         <div class="animated-separator">
-            <span class="marquee-text">✦ LA ARTESANA DEL CUENTO ✦ ANIMADORA DIGITAL ✦ CONCEPT ART ✦ 3D ARTIST ✦</span>
+            <div class="marquee-track">
+                <span class="marquee-content">✦ ANIMADORA DIGITAL ✦ CONCEPT ART ✦ 3D ARTIST ✦ STORYBOARD ✦ VIDEO EDITOR </span>
+                <span class="marquee-content">✦ ANIMADORA DIGITAL ✦ CONCEPT ART ✦ 3D ARTIST ✦ STORYBOARD ✦ VIDEO EDITOR </span>
+            </div>
         </div>
 
         <!-- 4. Sección Bio e Información -->
         <div class="info-section">
             <div class="profile-row">
-                <div class="avatar-box">
-                    <img src="IMG/ICON" alt="Icon GIA" onerror="this.style.display='none';">
-                </div>
                 <div class="profile-details">
                     <div class="logo-container">
                         <img id="gia-logo" src="IMG/LOGO 0-CAFE.png" alt="GIA Logo" class="brand-logo-img">
-                    </div>
-                    
-                    <div class="tags-row">
-                        <span class="tag-pill">3d art</span>
-                        <span class="tag-pill">2d anim</span>
-                        <span class="tag-pill">concept</span>
                     </div>
                 </div>
             </div>
 
             <p class="bio-paragraph">
-                Soy una creadora visual y diseñadora apasionada por dar vida a ideas a través de la animación, el arte digital y el desarrollo de experiencias interactivas. Mi enfoque combina la sensibilidad artesanal con el rigor técnico para construir narrativas visuales únicas.
+                Soy una creadora visual apasionada por dar vida a ideas a través de la animación, el arte digital y el desarrollo de experiencias interactivas. Mi enfoque combina la sensibilidad artesanal con el rigor técnico para construir narrativas visuales únicas.
             </p>
         </div>
 
         <!-- Carousel Exacto de Bootstrap -->
-        <div id="demo" class="carousel slide" data-bs-ride="carousel">
+        <div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-interval="900">
 
           <!-- Indicators/dots -->
           <div class="carousel-indicators" id="carousel-indicators-container">
@@ -352,7 +321,7 @@
         <!-- 6. Botones principales -->
         <div class="buttons-section">
             <a href="https://www.behance.net/natalievelasco2" target="_blank" class="btn-link">BEHANCE</a>
-            <a href="mailto:gia.rtswork@gmail.com" class="btn-link">CONTACT</a>
+            <a href="mailto:gia.rtswork@gmail.com" class="btn-link">EMAIL</a>
             <a href="https://natggeo.github.io/Portfolio2026_NatalieMendez/" target="_blank" class="btn-link">PORTAFOLIO</a>
         </div>
 
@@ -376,15 +345,13 @@
             const cardWidth = card.offsetWidth;
             const cardHeight = card.offsetHeight;
 
-            // Margen de seguridad más amplio para evitar que toque los bordes del navegador
-            const availableWidth = window.innerWidth - 24;
-            const availableHeight = window.innerHeight - 24;
+            const availableWidth = window.innerWidth - 40;
+            const availableHeight = window.innerHeight - 40;
 
             const scaleX = availableWidth / cardWidth;
             const scaleY = availableHeight / cardHeight;
 
-            // Se reduce un 10% adicional (multiplicado por 0.90) para que respire holgadamente
-            let finalScale = Math.min(scaleX, scaleY, 1) * 0.90;
+            let finalScale = Math.min(scaleX, scaleY, 1) * 0.82;
 
             card.style.transform = `scale(${finalScale})`;
         }
@@ -395,7 +362,7 @@
 
         // Lógica del Carrusel
         const carouselFiles = [
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+            "1", "2", "4", "5", "6", "7", "8", "10"
         ];
 
         const indicatorsContainer = document.getElementById("carousel-indicators-container");
